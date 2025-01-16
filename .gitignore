@@ -1,0 +1,11 @@
+# Node
+node_modules/
+dist/
+tmp/
+
+# Nx
+.nx/
+
+# Mac / IDE
+.DS_Store
+.idea/
