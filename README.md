@@ -1,4 +1,3 @@
-# Examples on how to use Clientwire
+# Examples of How to Use Clientwire
 
-You can find the documentation to the examples at https://clientwire.net/docs/category/integration-examples.
-
+You can find detailed documentation for the examples at: https://clientwire.net/docs/category/integration-examples.
