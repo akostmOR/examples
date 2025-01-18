@@ -1,0 +1,118 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.setup-wrapper {
+  background-color: #2d5889;
+  padding: 20px;
+  color: #fff;
+}
+h1 {
+  margin-bottom: 0.5em;
+}
+.setup-block {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.setup-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* 
+    If you want paragraphs on separate lines
+    you can place <p> in separate .setup-row or 
+    handle them with display:block for p. 
+    Shown in the HTML changes above
+  */
+}
+.setup-row p {
+  margin: 0; /* Let's keep paragraphs neat */
+  line-height: 1.4;
+}
+.setup-row label {
+  width: 150px;
+  font-weight: bold;
+  color: #fff;
+}
+.setup-row input {
+  flex: 1;
+  padding: 5px;
+  background-color: #fff;
+  color: #000;
+}
+.setup-row button {
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #2d5889;
+  border: none;
+  border-radius: 4px;
+  width: auto;
+}
+.setup-row button:hover {
+  opacity: 0.9;
+}
+.button-row {
+  justify-content: flex-start;
+}
+.section-divider {
+  border-top: 1px solid #fff;
+  margin: 20px 0;
+}
+.crm {
+  margin: 20px;
+}
+h2 {
+  text-align: center;
+  margin-top: 40px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+th,
+td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background: #f3f3f3;
+}
+.chat-button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.chat-button:hover {
+  background: #0056b3;
+}
+
+/* 
+   Example "console"-style log. We'll keep it simple with a bullet list.
+   Feel free to customize further.
+*/
+.setup-log {
+  background-color: #ffffff22; /* semi-transparent white */
+  padding: 10px;
+  border-radius: 4px;
+}
+.setup-log h3 {
+  margin-top: 0;
+}
+.setup-log ul {
+  list-style-type: square;
+  margin: 0;
+  padding-left: 20px;
+}
+.setup-log ul li {
+  margin-bottom: 5px;
+  color: #fff;
+  font-family: monospace;
+}

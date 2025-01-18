@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clientwire Integration Example</title>
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- jQuery is just used in this example, you don't need it in your frontend -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- setup.js contains code to setup your tenant for the example. -->
+    <script src="/setup.js"></script>
+
+    <!-- backend_simulation.js contains code that simlulates API calls by your backend to the Clientwire API. -->
+    <script src="/backend_simulation.js"></script>
+
+    <!-- code.js contains the actual code you would use in your frontend. -->
+    <script src="/code.js"></script>
+
+    <!-- You need to include the Clientwire styles. -->
+    <link
+      rel="stylesheet"
+      href="https://embed.production.clientwire.net/styles.css"
+    />
+    <!-- The Clientwire embed library you find at the bottom of the <body> tag. -->
+  </head>
+  <body>
+    <!-- The following section helps you setup your tenant and the example. -->
+    <div class="setup-wrapper">
+      <h1>Clientwire Integration Example</h1>
+
+      <div class="setup-block">
+        <div class="setup-row">
+          <label for="apiKey">API Key</label>
+          <input type="text" id="apiKey" placeholder="Enter API Key" />
+        </div>
+        <div class="setup-row">
+          <label for="userInfoEndpoint">User Info Endpoint</label>
+          <input
+            type="text"
+            id="userInfoEndpoint"
+            placeholder="Enter User Info Endpoint"
+          />
+        </div>
+        <div class="setup-row">
+          <label for="token">Token</label>
+          <input type="text" id="token" placeholder="Enter Token" />
+        </div>
+
+        <!-- Put each paragraph in a separate row for clarity -->
+        <div class="setup-row">
+          <p>
+            This sets the '/userInfo' endpoint of your system for passthrough
+            via the API key in your tenant. It also configures your tenant to
+            enable auto provisioning of users. A user with a random password and
+            the email returned from the '/userinfo' endpoint will be created if
+            it does not exist yet.
+          </p>
+        </div>
+        <div class="setup-row">
+          <p>
+            The 'token' is a token of your system that should be validated at
+            your '/userInfo' endpoint.
+          </p>
+        </div>
+        <div class="setup-row">
+          <p>
+            If you click on [Test API Call] we will send a request to our
+            backend that in turn calls your '/userInfo' endpoint.
+          </p>
+        </div>
+
+        <div class="setup-row button-row">
+          <button id="setupBtn">Setup</button>
+          <button id="testBtn">Test API Call</button>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="setup-block">
+        <div class="setup-row">
+          This simulates your backend adding a new conversation to Clientwire
+          via the API. Choose an ID like 'a-test-conversation-id' and click [Add
+          or Update].
+        </div>
+        <div class="setup-row">
+          <label for="convoId">Add Conversation</label>
+          <input
+            type="text"
+            id="convoId"
+            placeholder="Case ID"
+            value="a-test-conversation-id"
+          />
+        </div>
+        <div class="setup-row button-row">
+          <button id="addConvoBtn">Add or Update</button>
+        </div>
+        <div class="setup-row button-row"></div>
+
+        <div class="setup-log">
+          <h3>Log</h3>
+          <ul id="log"></ul>
+        </div>
+      </div>
+    </div>
+    <!-- END SETUP -->
+
+    <!-- Now the code starts that acts as your frontend. Look at backend_simulation.js for the Javascript part. -->
+    <div class="crm">
+      <h2><span id="tenantName">Your</span> CRM</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Case ID</th>
+            <th>Customer</th>
+            <th>Case Info</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>id1</td>
+            <td>Philipp</td>
+            <td>Some info about the case</td>
+            <td>
+              <button
+                class="chat-button"
+                onclick="showNotARealConversationAlert()"
+              >
+                Chat
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>id2</td>
+            <td>Robert</td>
+            <td>Other info about another case</td>
+            <td>
+              <button
+                class="chat-button"
+                onclick="showNotARealConversationAlert()"
+              >
+                Chat
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Include a tag with the id 'clientwire-container' where the Clientwire embed library will be injected. -->
+    <div id="clientwire-container"></div>
+    <!-- Include the Clientwire embed library. -->
+    <script
+      src="https://embed.production.clientwire.net/polyfills.js"
+      type="module"
+    ></script>
+    <script
+      src="https://embed.production.clientwire.net/clientwire_v1.js"
+      type="module"
+    ></script>
+  </body>
+</html>
