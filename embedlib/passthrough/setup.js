@@ -5,51 +5,47 @@
 
 $(document).ready(function () {
   // The setup just initializes your tenant with your user info endpoint
-  $("#setupBtn").click(function () {
-    const apiKeyValue = $("#apiKey").val().trim();
-    const userInfoEndpointValue = $("#userInfoEndpoint").val().trim();
-    accessTokenOfYourSystem = $("#token").val().trim();
+  $('#setupBtn').click(function () {
+    const apiKeyValue = $('#apiKey').val().trim();
+    const userInfoEndpointValue = $('#userInfoEndpoint').val().trim();
+    accessTokenOfYourSystem = $('#token').val().trim();
 
     if (!apiKeyValue || !userInfoEndpointValue || !accessTokenOfYourSystem) {
-      $("#log").append(
-        "<li>Please enter an API Key, a /userInfo endpoint and an access token.</li>"
+      $('#log').append(
+        '<li>Please enter an API Key, a /userInfo endpoint and an access token.</li>'
       );
       return;
     }
 
     // Lets find out our tenant ID and test if the API key works
     $.ajax({
-      url: API_BASE_URL + "/api/v1/tenant",
-      method: "GET",
+      url: API_BASE_URL + '/api/v1/tenant',
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        "X-API-Key": apiKeyValue,
+        'Content-Type': 'application/json',
+        'X-API-Key': apiKeyValue,
       },
       success: function (response) {
-        $("#log").append(
-          "<li>Tenant retrieved. Tenant ID: " + response.id + "</li>"
-        );
+        $('#log').append('<li>Tenant retrieved. Tenant ID: ' + response.id + '</li>');
         tenantId = response.id;
-        $("#tenantName").text(response.name);
+        $('#tenantName').text(response.name);
 
         // Now patch the tenant with the user info endpoint
         $.ajax({
-          url: API_BASE_URL + "/api/v1/tenant",
-          method: "PATCH",
+          url: API_BASE_URL + '/api/v1/tenant',
+          method: 'PATCH',
           headers: {
-            "Content-Type": "application/json",
-            "X-API-Key": apiKeyValue,
+            'Content-Type': 'application/json',
+            'X-API-Key': apiKeyValue,
           },
           data: JSON.stringify({
             passthrough_userinfo_url: userInfoEndpointValue,
           }),
           success: function (patchResponse) {
-            $("#log").append(
-              "<li>Tenant updated with passthrough_userinfo_url: " +
-                userInfoEndpointValue +
-                "</li>"
+            $('#log').append(
+              '<li>Tenant updated with passthrough_userinfo_url: ' + userInfoEndpointValue + '</li>'
             );
-            console.log("Tenant patch success:", patchResponse);
+            console.log('Tenant patch success:', patchResponse);
 
             // We simulate loading conversations here, you would do this in your backend.
             reloadConversations();
@@ -59,14 +55,14 @@ $(document).ready(function () {
             initClientWire();
           },
           error: function (error) {
-            $("#log").append("<li>Setup patch failed. Check console.</li>");
-            console.error("Setup failed:", error);
+            $('#log').append('<li>Setup patch failed. Check console.</li>');
+            console.error('Setup failed:', error);
           },
         });
       },
       error: function (error) {
-        $("#log").append("<li>Setup (GET tenant) failed. Check console.</li>");
-        console.error("Setup failed:", error);
+        $('#log').append('<li>Setup (GET tenant) failed. Check console.</li>');
+        console.error('Setup failed:', error);
       },
     });
   });
@@ -74,37 +70,33 @@ $(document).ready(function () {
   // Here we just send a direct XHR call to /api/v1/signin/passthrough
   // to test if the token is valid and your userInfo endpoint is working.
   // The real login will happen via the Clientwire SDK in practice.
-  $("#testBtn").click(function () {
+  $('#testBtn').click(function () {
     if (!tenantId) {
-      $("#log").append(
-        "<li>Please setup your tenant first (no tenantId yet).</li>"
-      );
+      $('#log').append('<li>Please setup your tenant first (no tenantId yet).</li>');
       return;
     }
     if (!accessTokenOfYourSystem) {
-      $("#log").append("<li>Please enter a token.</li>");
+      $('#log').append('<li>Please enter a token.</li>');
       return;
     }
 
-    console.log("Testing passthrough with token:", accessTokenOfYourSystem);
+    console.log('Testing passthrough with token:', accessTokenOfYourSystem);
 
     $.ajax({
-      url: API_BASE_URL + "/api/v1/signin/passthrough",
-      method: "POST",
-      contentType: "application/json",
+      url: API_BASE_URL + '/api/v1/signin/passthrough',
+      method: 'POST',
+      contentType: 'application/json',
       data: JSON.stringify({
         tenant_id: tenantId,
         token: accessTokenOfYourSystem,
       }),
       success: function (response) {
-        $("#log").append(
-          "<li>Passthrough test successful. Received tokens.</li>"
-        );
-        console.log("Passthrough call successful:", response);
+        $('#log').append('<li>Passthrough test successful. Received tokens.</li>');
+        console.log('Passthrough call successful:', response);
       },
       error: function (error) {
-        $("#log").append("<li>Passthrough test failed. Check console.</li>");
-        console.error("Test call failed:", error);
+        $('#log').append('<li>Passthrough test failed. Check console.</li>');
+        console.error('Test call failed:', error);
       },
     });
   });
@@ -112,6 +104,6 @@ $(document).ready(function () {
 
 window.showNotARealConversationAlert = function () {
   alert(
-    "This is just a static entry to illustrate how your CRM could look. Add a conversation to start a real chat."
+    'This is just a static entry to illustrate how your CRM could look. Add a conversation to start a real chat.'
   );
 };

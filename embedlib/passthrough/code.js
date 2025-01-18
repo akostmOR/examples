@@ -10,7 +10,7 @@ const API_BASE_URL = "https://api.production.clientwire.net";
 // You would use this value in your backend to create a conversation.
 // Every tenant comes with a 'default' conversation type, so we use that one.
 // If you have removed it, you need to specify a different conversation type here.
-const CONVERSATION_TYPE = "default";
+const CONVERSATION_TYPE = 'default';
 
 // This is where we store the tenant ID based on your API key.
 // If you are using this in production, you would set the tenant ID in your code.
@@ -27,10 +27,23 @@ let clientwire = null;
 // clicks on the Chat button of a case in your system.
 // Look at the backend_simulation.js file to see how this function is called.
 window.yourFrontendsOpenChatFunction = function (conversationId) {
-  $("#log").append(`<li>Showing the chat for: ${conversationId}</li>`);
+  $('#log').append(`<li>Showing the chat for: ${conversationId}</li>`);
 
-  $("#clientwire-container").show();
+  $('#clientwire-wrapper').show();
   clientwire.openConversation(conversationId);
+};
+
+// This is a function you would setup in your frontend to call when someone
+// clicks on the Close button of the chat window.
+window.yourCloseClientWireChatFunction = function () {
+  $('#clientwire-wrapper').hide();
+
+  // Optionally, you can also call clientwire.closeConversation() if you want
+  // to properly detach from the conversation session. Usually, simply hiding
+  // the container is enough, but if you want to fully close it:
+  // if (clientwire) {
+  //   clientwire.closeConversation();
+  // }
 };
 
 // Init Clientwire SDK
@@ -40,7 +53,7 @@ window.initClientWire = function () {
   // we protect against re-initializing the Clientwire SDK.
   if (clientwire) {
     alert(
-      "Clientwire SDK already initialized, please reload the page if you changed your Tenant/API key."
+      'Clientwire SDK already initialized, please reload the page if you changed your Tenant/API key.'
     );
     return;
   }
@@ -50,7 +63,8 @@ window.initClientWire = function () {
     // This is the tenant ID of your Clientwire account.
     // You can find it in the Clientwire dashboard settings.
     // For this example we retrieve it with the API key.
-    // In a real app, you would set it in your code.
+    // In a real app, you would set it in your code
+    // eg: tenantId: "ace00000-ace0000-ace00-ace00-ace000000"
     tenantId: tenantId,
     // Here you need to provide a function that returns the access token of your system.
     // Clientwire will call this function to get the access token when
@@ -60,12 +74,12 @@ window.initClientWire = function () {
     },
     // accessToken: accessTokenOfYourSystem,
     // This is the ID of the HTML element where the Clientwire SDK will render.
-    containerId: "clientwire-container",
+    containerId: 'clientwire-container',
     // This is the base URL of the Clientwire API.
     // In your production app, you can remove it and we use the default production endpoint.
     // We added it here so you can run this example to make more easy to run this example
     // against different Clientwire environments.
     apiBaseUrl: API_BASE_URL,
   });
-  $("#log").append("<li>Clientwire SDK initialized.</li>");
+  $('#log').append('<li>Clientwire SDK initialized.</li>');
 };

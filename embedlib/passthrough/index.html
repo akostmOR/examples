@@ -17,12 +17,65 @@
     <!-- code.js contains the actual code you would use in your frontend. -->
     <script src="/code.js"></script>
 
-    <!-- You need to include the Clientwire styles. -->
-    <link
-      rel="stylesheet"
-      href="https://embed.production.clientwire.net/styles.css"
-    />
-    <!-- The Clientwire embed library you find at the bottom of the <body> tag. -->
+    <!-- You need to include the Clientwire styles and style the integration <div>. -->
+    <link rel="stylesheet" href="https://embed.production.clientwire.net/styles.css" />
+    <!-- Next we can style how you want your chat window to look like. <div>. -->
+    <style>
+      #clientwire-wrapper {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+
+        width: 400px;
+        height: 800px;
+
+        display: none;
+      }
+
+      #clientwire-chat {
+        width: 100%;
+        height: 100%;
+
+        border-radius: 6px;
+        background-color: #fff;
+        border: 2px solid #0071bb;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      .clientwire-header {
+        background-color: #0071bb;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: bold;
+
+        flex: 0 0 auto;
+      }
+
+      #clientwire-container {
+        flex: 1 1 auto;
+        overflow-y: auto;
+      }
+
+      .close-button {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .close-button:hover {
+        opacity: 0.8;
+      }
+    </style>
+    <!-- The Clientwire embed library you find right above of the </body> tag. It cannot be in the header. -->
   </head>
   <body>
     <!-- The following section helps you setup your tenant and the example. -->
@@ -36,11 +89,7 @@
         </div>
         <div class="setup-row">
           <label for="userInfoEndpoint">User Info Endpoint</label>
-          <input
-            type="text"
-            id="userInfoEndpoint"
-            placeholder="Enter User Info Endpoint"
-          />
+          <input type="text" id="userInfoEndpoint" placeholder="Enter User Info Endpoint" />
         </div>
         <div class="setup-row">
           <label for="token">Token</label>
@@ -50,23 +99,22 @@
         <!-- Put each paragraph in a separate row for clarity -->
         <div class="setup-row">
           <p>
-            This sets the '/userInfo' endpoint of your system for passthrough
-            via the API key in your tenant. It also configures your tenant to
-            enable auto provisioning of users. A user with a random password and
-            the email returned from the '/userinfo' endpoint will be created if
-            it does not exist yet.
+            This sets the '/userInfo' endpoint of your system for passthrough via the API key in
+            your tenant. It also configures your tenant to enable auto provisioning of users. A user
+            with a random password and the email returned from the '/userinfo' endpoint will be
+            created if it does not exist yet.
           </p>
         </div>
         <div class="setup-row">
           <p>
-            The 'token' is a token of your system that should be validated at
+            The 'token' is a token of your system that should be validated at your '/userInfo'
+            endpoint.
+          </p>
+        </div>
+        <div class="setup-row">
+          <p>
+            If you click on [Test API Call] we will send a request to our backend that in turn calls
             your '/userInfo' endpoint.
-          </p>
-        </div>
-        <div class="setup-row">
-          <p>
-            If you click on [Test API Call] we will send a request to our
-            backend that in turn calls your '/userInfo' endpoint.
           </p>
         </div>
 
@@ -80,18 +128,12 @@
 
       <div class="setup-block">
         <div class="setup-row">
-          This simulates your backend adding a new conversation to Clientwire
-          via the API. Choose an ID like 'a-test-conversation-id' and click [Add
-          or Update].
+          This simulates your backend adding a new conversation to Clientwire via the API. Choose an
+          ID like 'a-test-conversation-id' and click [Add or Update].
         </div>
         <div class="setup-row">
           <label for="convoId">Add Conversation</label>
-          <input
-            type="text"
-            id="convoId"
-            placeholder="Case ID"
-            value="a-test-conversation-id"
-          />
+          <input type="text" id="convoId" placeholder="Case ID" value="a-test-conversation-id" />
         </div>
         <div class="setup-row button-row">
           <button id="addConvoBtn">Add or Update</button>
@@ -108,7 +150,10 @@
 
     <!-- Now the code starts that acts as your frontend. Look at backend_simulation.js for the Javascript part. -->
     <div class="crm">
-      <h2><span id="tenantName">Your</span> CRM</h2>
+      <h2>
+        <span id="tenantName">Your</span>
+        CRM
+      </h2>
       <table>
         <thead>
           <tr>
@@ -124,12 +169,7 @@
             <td>Philipp</td>
             <td>Some info about the case</td>
             <td>
-              <button
-                class="chat-button"
-                onclick="showNotARealConversationAlert()"
-              >
-                Chat
-              </button>
+              <button class="chat-button" onclick="showNotARealConversationAlert()">Chat</button>
             </td>
           </tr>
           <tr>
@@ -137,28 +177,26 @@
             <td>Robert</td>
             <td>Other info about another case</td>
             <td>
-              <button
-                class="chat-button"
-                onclick="showNotARealConversationAlert()"
-              >
-                Chat
-              </button>
+              <button class="chat-button" onclick="showNotARealConversationAlert()">Chat</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Include a tag with the id 'clientwire-container' where the Clientwire embed library will be injected. -->
-    <div id="clientwire-container"></div>
+    <!-- The wrapper is under your control and you can style it or name it as you want. -->
+    <div id="clientwire-wrapper">
+      <div id="clientwire-chat">
+        <div class="clientwire-header">
+          <span>Chat</span>
+          <button class="close-button" onclick="yourCloseClientWireChatFunction()">X</button>
+        </div>
+        <!-- Include a tag with the id 'clientwire-container' where the Clientwire embed library will be injected. -->
+        <div id="clientwire-container"></div>
+      </div>
+    </div>
     <!-- Include the Clientwire embed library. -->
-    <script
-      src="https://embed.production.clientwire.net/polyfills.js"
-      type="module"
-    ></script>
-    <script
-      src="https://embed.production.clientwire.net/clientwire_v1.js"
-      type="module"
-    ></script>
+    <script src="https://embed.production.clientwire.net/polyfills.js" type="module"></script>
+    <script src="https://embed.production.clientwire.net/clientwire_v1.js" type="module"></script>
   </body>
 </html>
