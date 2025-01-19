@@ -64,7 +64,7 @@ window.initClientWire = function () {
     // You can find it in the Clientwire dashboard settings.
     // For this example we retrieve it with the API key.
     // In a real app, you would set it in your code
-    // eg: tenantId: "ace00000-ace0000-ace00-ace00-ace000000"
+    // eg: tenantId: "ace00000-ace0-ace0-ace0-ace000000000"
     tenantId: tenantId,
     // Here you need to provide a function that returns the access token of your system.
     // Clientwire will call this function to get the access token when
