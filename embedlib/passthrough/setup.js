@@ -67,7 +67,7 @@ $(document).ready(function () {
     });
   });
 
-  // Here we just send a direct XHR call to /api/v1/signin/passthrough
+  // Here we just send a direct XHR call to /api/v1/auth/{tenant_id}/oauth2/token
   // to test if the token is valid and your userInfo endpoint is working.
   // The real login will happen via the Clientwire SDK in practice.
   $('#testBtn').click(function () {
@@ -83,13 +83,13 @@ $(document).ready(function () {
     console.log('Testing passthrough with token:', accessTokenOfYourSystem);
 
     $.ajax({
-      url: API_BASE_URL + '/api/v1/signin/passthrough',
+      url: API_BASE_URL + '/api/v1/auth/' + tenantId + '/oauth2/token',
       method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        tenant_id: tenantId,
-        token: accessTokenOfYourSystem,
-      }),
+      contentType: 'application/x-www-form-urlencoded',
+      data:
+        'grant_type=urn:ietf:params:oauth:grant-type:token-exchange&subject_token=' +
+        accessTokenOfYourSystem +
+        '&subject_token_type=urn:ietf:params:oauth:token-type:access_token',
       success: function (response) {
         $('#log').append('<li>Passthrough test successful. Received tokens.</li>');
         console.log('Passthrough call successful:', response);
