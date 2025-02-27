@@ -41,9 +41,9 @@ window.yourCloseClientWireChatFunction = function () {
   // Optionally, you can also call clientwire.closeConversation() if you want
   // to properly detach from the conversation session. Usually, simply hiding
   // the container is enough, but if you want to fully close it:
-  // if (clientwire) {
-  //   clientwire.closeConversation();
-  // }
+  if (clientwire) {
+    clientwire.closeConversation();
+  }
 };
 
 // Init Clientwire SDK
