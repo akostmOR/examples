@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clientwire Integration Example</title>
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- jQuery is just used in this example, you don't need it in your frontend -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- code.js contains the actual code you would use in your frontend. -->
+    <script src="/code.js"></script>
+
+    <!-- You need to include the Clientwire styles and style the integration <div>. -->
+    <link rel="stylesheet" href="https://embed.production.clientwire.net/styles.css" />
+    <!-- Next we can style how you want your chat window to look like. <div>. -->
+    <style>
+      #clientwire-wrapper {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+
+        width: 400px;
+        height: 800px;
+
+        display: none;
+      }
+
+      #clientwire-chat {
+        width: 100%;
+        height: 100%;
+
+        border-radius: 6px;
+        background-color: #fff;
+        border: 2px solid #0071bb;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      .clientwire-header {
+        background-color: #0071bb;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: bold;
+
+        flex: 0 0 auto;
+      }
+
+      .close-button {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close-button:hover {
+        opacity: 0.8;
+      }
+    </style>
+    <!-- The Clientwire embed library you find right above of the </body> tag. It cannot be in the header. -->
+  </head>
+  <body>
+    <!-- The following section helps you setup your tenant and the example. -->
+    <div class="setup-wrapper">
+      <h1>Clientwire Integration Example</h1>
+
+      <div class="setup-block">
+        <div class="setup-row">
+          <label for="tenant_id">Tenant ID</label>
+          <input type="text" id="tenant_id" placeholder="Enter Tenant ID" value="19646399-1029-4476-9aa5-24931e68b503" />
+        </div>
+        <div class="setup-row">
+          <label for="email">E=Mail</label>
+          <input type="text" id="email" placeholder="Enter E-Mail" value="philipp.schmid@openresearch.com" />
+        </div>
+        <div class="setup-row">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter Password" />
+        </div>
+        <div class="setup-row">
+          <label for="conversation_id_1">Conversation ID 1</label>
+          <input type="text" id="conversation_id_1" placeholder="Enter an existing Conversation ID" />
+        </div>
+        <div class="setup-row">
+          <label for="conversation_id_2">Conversation ID 2</label>
+          <input type="text" id="conversation_id_2" placeholder="Enter an existing Conversation ID" />
+        </div>
+
+        <div class="setup-row">
+          <p>
+            If you click on [Setup] to init the Clientwire SDK.
+          </p>
+        </div>
+
+        <div class="setup-row button-row">
+          <button id="setupBtn">Setup</button>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="setup-row button-row"></div>
+
+        <div class="setup-log">
+          <h3>Log</h3>
+          <ul id="log"></ul>
+        </div>
+      </div>
+    </div>
+    <!-- END SETUP -->
+
+    <!-- Now the code starts that acts as your frontend. -->
+    <div class="crm">
+      <h2>
+        <span id="tenantName">Your</span>
+        CRM
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Case ID</th>
+            <th>Customer</th>
+            <th>Case Info</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="case-id-1">Enter an ID above</td>
+            <td>Philipp</td>
+            <td>Some info about the case</td>
+            <td>
+              <button id="chat-button-1" class="chat-button" onclick="yourFrontendsOpenChatFunction('conversation_id_1')">Chat</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="case-id-2">Enter an ID above</td>
+            <td>Robert</td>
+            <td>Other info about another case</td>
+            <td>
+              <button id="chat-button-2" class="chat-button" onclick="yourFrontendsOpenChatFunction('conversation_id_2')">Chat</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- The wrapper is under your control and you can style it or name it as you want. -->
+    <div id="clientwire-wrapper">
+      <div id="clientwire-chat">
+        <div class="clientwire-header">
+          <span>Chat</span>
+          <button class="close-button" onclick="yourCloseClientWireChatFunction()">X</button>
+        </div>
+        <!-- Include a tag with the id 'clientwire-container' where the Clientwire embed library will be injected. -->
+        <div id="clientwire-container"></div>
+      </div>
+    </div>
+    <!-- Include the Clientwire embed library. -->
+    <script src="https://embed.production.clientwire.net/polyfills.js" type="module"></script>
+    <script src="https://embed.production.clientwire.net/clientwire_v1.js" type="module"></script>
+    
+    <!-- Include our setup script -->
+    <script src="/setup.js"></script>
+  </body>
+</html>

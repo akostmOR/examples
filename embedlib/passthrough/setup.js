@@ -39,7 +39,7 @@ $(document).ready(function () {
             'X-API-Key': apiKeyValue,
           },
           data: JSON.stringify({
-            passthrough_userinfo_url: userInfoEndpointValue,
+            token_exchange_userinfo_url: userInfoEndpointValue,
           }),
           success: function (patchResponse) {
             $('#log').append(
