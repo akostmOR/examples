@@ -4,7 +4,7 @@
 
 // This is the API endpoint, usually you want to run this example
 // against our production API.
-const API_BASE_URL = "https://api.int.clientwire.net";
+const API_BASE_URL = "https://api.dev.clientwire.net";
 
 // The conversation type to use through this example.
 // You would use this value in your backend to create a conversation.
